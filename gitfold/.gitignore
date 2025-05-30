@@ -1,0 +1,18 @@
+# Ignore shell history and AWS CLI command outputs
+*.sh
+*.bash_history
+
+# Ignore log files
+*.log
+
+# Ignore any temporary files
+*.tmp
+*.temp
+~$*
+
+# Ignore OneDrive sync files
+*.lnk
+*.tmp
+*.ini
+.DS_Store
+Thumbs.db

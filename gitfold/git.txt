@@ -1,0 +1,67 @@
+Working DIR - Staging - REPO
+
+# Clone a repository
+git clone [repository_url]
+
+# Clone a repository into a specific folder
+git clone [repository_url] [folder_name]
+
+# Check the status of your working directory and staging area
+git status
+
+# Switch to a branch
+git checkout [branch_name]
+
+# Create and switch to a new branch
+git checkout -b [branch_name]
+
+# Merge a branch into the current branch
+git merge [branch_name]
+
+# View commit history
+git log
+git log --oneline
+
+# Show remote repositories
+git remote -v
+
+# Add a remote repository
+git remote add [name] [url]
+
+# Add a remote named 'origin'
+git remote add origin [repository_url]
+
+# Push & pull changes to remote repository
+git push [remote] [branch]
+git pull [remote] [branch]
+
+# Remove a file from staging area
+git reset HEAD [file]
+
+# Reset to a previous commit (soft: keep changes staged)
+git reset --soft [commit_hash]
+
+# Reset to a previous commit (hard: discard all changes)
+git reset --hard [commit_hash]
+
+# Restore a file in the working directory to the last committed state
+git restore [file]
+
+# Remove a file from the repository and working directory
+git rm [file]
+
+# Stash changes
+git stash
+git stash apply
+
+# Diff between commits and staged
+git diff --cached
+
+# Create a tag
+git tag [tag_name]
+
+# View all tags
+git tag
+
+# Show commit graph (requires alias or plugin)
+git log --oneline --graph --all

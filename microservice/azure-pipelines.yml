@@ -1,0 +1,38 @@
+# This section triggers the pipeline whenever changes are pushed to the 'main' branch.
+trigger:
+  branches:
+    include:
+      - main
+
+  # Using 'ubuntu-latest' for compatibility with Node.js 18.x and modern CI/CD workflows.
+  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-latest'
+# Define the Node.js version to ensure compatibility with the project's dependencies.
+variables:
+  NODE_VERSION: '18.x'
+  NODE_VERSION: '18.x'
+
+# This task sets up the specified Node.js version for the pipeline environment.
+- task: NodeTool@0
+  inputs:
+    versionSpec: '$(NODE_VERSION)'
+  displayName: 'Use Node.js $(NODE_VERSION)'
+  displayName: 'Use Node.js $(NODE_VERSION)'
+- script: |
+    # Using 'npm ci' for faster installation and ensuring a clean slate by removing existing node_modules.
+    npm ci
+  displayName: 'Install dependencies'
+  displayName: 'Install dependencies'
+# This script runs Jest tests to validate the codebase and ensure functionality.
+- script: |
+    npm test
+  displayName: 'Run Jest tests'
+  displayName: 'Run Jest tests'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.SourcesDirectory)/coverage'
+    artifactName: 'coverage-report'
+    publishLocation: 'Container'
+  # Ensures artifacts are published even if tests fail, allowing for debugging and analysis.
+  condition: succeededOrFailed()
