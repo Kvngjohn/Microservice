@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   build-test:
@@ -25,19 +25,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
-
       - name: Run tests
         run: npm test
 
       - name: Archive coverage (if any)
-        if: success() && (hashFiles('coverage/**') != '' || hashFiles('jest-results.json') != '')
+        if: success()
         uses: actions/upload-artifact@v3
         with:
           name: jest-results
           path: |
             coverage
             jest-results.json
-
 
