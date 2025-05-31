@@ -1,12 +1,20 @@
 {
   "name": "microservice-app",
   "version": "1.0.0",
+  "description": "A basic Node.js microservice application using Express.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "jest --runInBand"
   },
+  "keywords": [
+    "nodejs",
+    "express",
+    "microservice"
+  ],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
