@@ -1,35 +1,54 @@
-import 'dotenv/config';
-import express from 'express';
-import morgan from 'morgan';
-import cors from 'cors';
-import bodyParser from 'body-parser';
+// File: index.js
+
+// Load environment variables from .env (if present)
+require('dotenv').config();
+
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
 const app = express();
-const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
+
+// Default port is 3000, or use process.env.PORT if defined
+const PORT = process.env.PORT || 3000;
+
 // Middleware
 app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
-// Basic health-check route
-app.get('/health', (_req, res) => {
-    res.json({ status: 'OK', timestamp: Date.now() });
+
+// Routes
+
+// 1) Health-check route
+//    GET /health → { status: 'OK', timestamp: <number> }
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: Date.now() });
 });
-// Example “echo” POST endpoint
+
+// 2) Echo endpoint
+//    POST /echo with JSON body → { youSent: <same JSON> }
 app.post('/echo', (req, res) => {
-    res.json({ youSent: req.body });
+  res.json({ youSent: req.body });
 });
-// 404 handler
-app.use((_req, res) => {
-    res.status(404).json({ error: 'Not Found' });
+
+// 3) 404 handler for any unmatched route
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not Found' });
 });
-// Error handler
-app.use((err, _req, res, _next) => {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+
+// 4) Error handler (catches thrown errors in routes)
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: 'Internal Server Error' });
 });
-// Start server
+
+// Only start the server if this file is run directly (not when required by tests)
 if (require.main === module) {
-    app.listen(PORT, () => {
-        console.log(`Server listening on port ${PORT}`);
-    });
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
 }
-export default app;
+
+// Export the Express app for Supertest (Jest) to mount
+module.exports = app;

@@ -1,12 +1,14 @@
 // Load environment variables from a .env file into process.env
-import 'dotenv/config';
+require('dotenv').config();
+
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-// The server will default to port 3000 if the environment variable PORT is not defined.
-const PORT = process.env.PORT || 3000;
+const app = express();
+
+// The server will default to port 3000 if process.env.PORT is not defined.
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -24,18 +26,18 @@ app.post('/echo', (req, res) => {
   res.json({ youSent: req.body });
 });
 
-// 404 handler
+// 404 handler (any unmatched route)
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
 });
 
-// Error handler
+// Error handler (catches sync & async errors)
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: 'Internal Server Error' });
 });
 
-// Start server
+// Start server (only when running this file directly)
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

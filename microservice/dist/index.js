@@ -29,6 +29,9 @@ app.get('/hello/:name', (req, res) => {
 app.get('/message', (_req, res) => {
     res.json({ message: process.env.MESSAGE || 'Default message' });
 });
+app.get('/test-error', (req, res, next) => {
+    next(new Error('Simulated failure'));
+});
 // 404 handler
 app.use((_req, res) => {
     res.status(404).json({ error: 'Not Found' });
