@@ -33,7 +33,7 @@ jobs:
 
       - name: Archive coverage (if any)
         if: success() && (hashFiles('coverage/**') != '' || hashFiles('jest-results.json') != '')
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: jest-results
           path: |
