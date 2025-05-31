@@ -31,5 +31,3 @@ jobs:
           name: build-artifact
           path: |
             dist
-# ...existing code...
-
