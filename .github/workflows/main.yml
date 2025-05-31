@@ -1,31 +1,4 @@
-name: CI
 
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-
-jobs:
-  build-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16, 18]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
         run: npm run build
 
       - name: Run tests
@@ -33,7 +6,7 @@ jobs:
 
       - name: Archive coverage (if any)
         if: success() && (hashFiles('coverage/**') != '' || hashFiles('jest-results.json') != '')
-        uses: actions/upload-artifact@v2
+        - uses: actions/upload-artifact@v4
         with:
           name: coverage-artifacts
           path: |
