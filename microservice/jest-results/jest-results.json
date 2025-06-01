@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="6" failures="0" errors="0" time="1.056">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2025-05-31T02:45:34" time="0.169" tests="6">
+    <testcase classname=" hello world!" name=" hello world!" time="0.002">
+    </testcase>
+    <testcase classname=" object equality" name=" object equality" time="0.001">
+    </testcase>
+    <testcase classname=" array contains value" name=" array contains value" time="0">
+    </testcase>
+    <testcase classname=" string matches regex" name=" string matches regex" time="0">
+    </testcase>
+    <testcase classname=" promise resolves" name=" promise resolves" time="0.001">
+    </testcase>
+    <testcase classname=" throws error" name=" throws error" time="0.007">
+    </testcase>
+  </testsuite>
+</testsuites>
