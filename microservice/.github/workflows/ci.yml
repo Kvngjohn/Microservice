@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - master      # ← add master here
+      - master
   pull_request:
     branches:
       - main
@@ -14,28 +14,39 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18]
-
     steps:
+      # 1) Check out the entire repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      # 2) Set up Node.js
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
 
+      # 3) Install dependencies (inside the microservice folder)
       - name: Install dependencies
+        working-directory: microservice
         run: npm ci
 
-      - name: Run tests
+      # 4) Run tests
+      - name: Run Jest tests
+        working-directory: microservice
         run: npm test
 
+      # 5) Upload test results (if you configure jest-junit)
+      - name: Upload test-results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: jest-results
+          path: microservice/jest-results
+
+      # 6) Upload coverage folder
       - name: Upload coverage report
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: coverage
-          path: coverage
+          path: microservice/coverage
