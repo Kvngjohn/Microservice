@@ -1,16 +1,18 @@
-// File: jest.config.js
-
+// jest.config.js
 module.exports = {
-  // Use the Node environment (no DOM)
+  preset: 'ts-jest',
   testEnvironment: 'node',
-
-  // Only run test files ending in .test.js under any __tests__ folder
-  testMatch: ['**/__tests__/**/*.test.js'],
-
-  // Print individual test results for debugging
-  verbose: true,
-
-  // Collect coverage and output to ./coverage
+  testMatch: ['**/__tests__/**/*.test.ts'],
+  reporters: [
+    'default',
+    [ 'jest-junit', {
+        outputDirectory: './jest-results',
+        outputName: 'results.xml',      // produce results.xml (not JSON)
+        suiteName: 'unit-tests',        // optional
+        addFileAttribute: true          // optional: include <file> in the XML
+      }
+    ]
+  ],
   collectCoverage: true,
-  coverageDirectory: 'coverage'
+  coverageDirectory: 'coverage',
 };
